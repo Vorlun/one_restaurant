@@ -16,7 +16,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { BaseAuthGuard } from '../common/guards/base-auth.guard';
 import { CrudGuard } from '../common/guards/crud.guard';
 import { Request } from 'express';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 
 @ApiTags('Users')
 @Controller('users')
@@ -33,6 +33,7 @@ export class UsersController {
 
   @Get()
   @ApiOperation({ summary: 'Get all users' })
+  @ApiBearerAuth()
   @ApiResponse({ status: 200, description: 'List of users' })
   findAll(@Req() req: Request | any) {
     return this.usersService.findAll(req.user);
